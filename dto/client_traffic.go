@@ -1,6 +1,5 @@
 package dto
 
-// ClientTraffic represents client traffic statistics
 type ClientTraffic struct {
 	ID         int    `json:"id"`
 	InboundID  int    `json:"inboundId"`
