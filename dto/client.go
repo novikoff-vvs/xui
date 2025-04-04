@@ -1,6 +1,6 @@
 package dto
 
-type Client []struct {
+type Client struct {
 	Comment    string `json:"comment"`
 	Email      string `json:"email"`
 	Enable     bool   `json:"enable"`
