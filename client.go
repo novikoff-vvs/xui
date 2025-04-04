@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/novikoff-vvs/xui/dto"
+	"github.com/novikoff-vvs/xui/requests"
 	"io"
 	"net/http"
 	"net/url"
@@ -271,16 +272,8 @@ func (c *Client) AddInbound(inbound dto.Inbound) (*dto.Inbound, error) {
 }
 
 // AddClientToInbound adds a new client to an existing inbound
-func (c *Client) AddClientToInbound(inboundID int, clientSettings string) error {
-	payload := struct {
-		ID       int    `json:"id"`
-		Settings string `json:"settings"`
-	}{
-		ID:       inboundID,
-		Settings: clientSettings,
-	}
-
-	body, err := json.Marshal(payload)
+func (c *Client) AddClientToInbound(request requests.AddClientToInboundRequest) error {
+	body, err := json.Marshal(request)
 	if err != nil {
 		return err
 	}
