@@ -12,7 +12,7 @@ type Inbound struct {
 	Listen         string       `json:"listen"`
 	Port           int          `json:"port"`
 	Protocol       string       `json:"protocol"`
-	Settings       string       `json:"settings"`
+	Settings       Settings     `json:"settings"`
 	StreamSettings string       `json:"streamSettings"`
 	Tag            string       `json:"tag"`
 	Sniffing       string       `json:"sniffing"`
