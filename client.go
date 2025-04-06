@@ -575,6 +575,32 @@ func (c *Client) GetOnlineClients() ([]string, error) {
 	return result.Obj, nil
 }
 
+func (c *Client) GetUserByEmail(request requests.GetUserByEmailRequest) (dto.Client, error) {
+	body, _ := json.Marshal(request)
+	req, err := http.NewRequest("POST", fmt.Sprintf("%s/panel/api/inbounds/getClientByEmail", c.baseURL), bytes.NewReader(body))
+	if err != nil {
+		return dto.Client{}, err
+	}
+
+	c.setAuthHeader(req)
+
+	var result struct {
+		Success bool       `json:"success"`
+		Msg     string     `json:"msg"`
+		Client  dto.Client `json:"client"`
+	}
+
+	if err := c.doRequest(req, &result); err != nil {
+		return dto.Client{}, err
+	}
+
+	if !result.Success {
+		return dto.Client{}, fmt.Errorf("failed to get online clients: %s", result.Msg)
+	}
+
+	return result.Client, nil
+}
+
 // setAuthHeader sets the session cookie for authentication
 func (c *Client) setAuthHeader(req *http.Request) {
 	if c.sessionID != "" {
